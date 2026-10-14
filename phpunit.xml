@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.0/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         colors="true"
+         stopOnFailure="false">
+
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Integration">
+            <directory>tests/Integration</directory>
+        </testsuite>
+    </testsuites>
+
+    <php>
+        <env name="APP_ENV"      value="testing"/>
+        <env name="APP_DEBUG"    value="false"/>
+        <env name="DB_HOST"      value="db"/>
+        <env name="DB_PORT"      value="3306"/>
+        <env name="DB_DATABASE"  value="devflow_test"/>
+        <env name="DB_USERNAME"  value="devflow"/>
+        <env name="DB_PASSWORD"  value="devflow_pass"/>
+        <env name="MAIL_ENABLED"         value="false"/>
+        <env name="ADMIN_TOKEN"          value="test_admin_token_123"/>
+        <env name="ENCRYPTION_KEY"       value="0000000000000000000000000000000000000000000000000000000000000001"/>
+        <env name="ENCRYPTION_HMAC_KEY"  value="0000000000000000000000000000000000000000000000000000000000000002"/>
+    </php>
+
+    <source>
+        <include>
+            <directory>app</directory>
+        </include>
+    </source>
+</phpunit>

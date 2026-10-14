@@ -1,0 +1,36 @@
+# Imagens de referência e arquivos de projeto
+layout.png
+arquitetura.png
+projeto.md
+.claude
+
+# Ambiente
+.env
+
+# PHP
+/vendor/
+
+# Node
+/node_modules/
+
+# CSS compilado (gerado pelo build)
+/public/assets/css/app.css
+
+# Logs
+/storage/logs/*.log
+
+# Composer lock (incluir em produção real, ignorado aqui por ser portfólio)
+# composer.lock
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker override local
+compose.override.yml

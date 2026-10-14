@@ -1,0 +1,50 @@
+services:
+
+  # ── Aplicação PHP ──────────────────────────────────────────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: devflow-app
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./storage:/var/www/html/storage
+    networks:
+      - devflow-net
+
+  # ── MySQL 8 ────────────────────────────────────────────────────────────────
+  db:
+    image: mysql:8.0
+    container_name: devflow-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_pass_change_me}
+      MYSQL_DATABASE:      ${DB_DATABASE:-devflow}
+      MYSQL_USER:          ${DB_USERNAME:-devflow}
+      MYSQL_PASSWORD:      ${DB_PASSWORD:-devflow_pass}
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./database/migrations:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost",
+             "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-root_pass_change_me}"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+      start_period: 30s
+    networks:
+      - devflow-net
+
+volumes:
+  db-data:
+    driver: local
+
+networks:
+  devflow-net:
+    driver: bridge

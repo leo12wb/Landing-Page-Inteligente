@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# Projeto demonstrativo — sem sitemap ativo
